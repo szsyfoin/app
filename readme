@@ -35,3 +35,4 @@ int main(){
 	cout<<"平均时长："<<average/20<<" s"<<endl;
 	return 0;
 }
+//Let's Go Everybody!!!

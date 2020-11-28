@@ -1,0 +1,37 @@
+#include<iostream>
+#include<time.h>
+#include<stdlib.h>
+using namespace std;
+int main(){
+	int *num,number,temp;
+	double average=0;
+	cin>>number;
+	num=new int[number];
+	for(int x=0;x<20;x++) {
+	srand((unsigned)time(NULL));//重置随机数，确保随机数不同。 
+		for(int j=0;j<number;j++)
+			num[j]=rand();
+	clock_t first, second;
+   		 first = clock();
+	for(int i=1;i<number;i++){
+		temp=num[i];//从第二个数字开始排 ,设置哨兵 
+		for(int k=0;k<i;k++){
+			if(temp<num[k])// 如果待排数据小于哨兵（当前待排位置上的数字） 
+				{
+					for(int p=i;p>k;p--)
+						num[p]=num[p-1];//依次后移准备插入 
+					num[k]=temp;
+					break;
+				}
+		}
+	}
+	second = clock();
+         double duration;
+    duration=(double)(second-first)/CLOCKS_PER_SEC;
+    printf("The difference is: %lf seconds\n",duration);
+    average=average+duration;
+	
+}
+	cout<<"平均时长："<<average/20<<" s"<<endl;
+	return 0;
+}

@@ -1,0 +1,80 @@
+#include<iostream>
+using namespace std;
+
+class BiTree{
+public:
+	int data;
+	BiTree *lchild,*rchild;
+};
+BiTree *CreateTree(BiTree *T,int D){
+	if(T==NULL){
+		T=new BiTree();
+		T->data=D;
+	}
+	else{
+		if(D>T->data)
+			T->rchild=CreateTree(T->rchild,D);
+		else
+			T->lchild=CreateTree(T->lchild,D);
+	}
+	return T; 
+}
+int pos=0;
+void Find(BiTree *T,int D){
+	if(T->data==D){
+		pos++;
+		cout<<pos<<endl;
+		return;
+	}
+	if(T->data!=D){
+		if(D>T->data &&T->rchild!=NULL){
+			pos++;
+			Find(T->rchild,D);
+		}
+		else if(D>T->data &&T->rchild==NULL)
+		{
+			cout<<-1<<endl;
+			return;
+		}
+		if(D<T->data && T->lchild!=NULL)
+			{
+				pos++;
+				Find(T->lchild,D);
+			}	
+		else if(D<T->data && T->lchild==NULL){
+			cout<<-1<<endl;
+			return;
+		}
+	}
+}
+void display(BiTree *T){
+	if(T!=NULL){
+		display(T->lchild);
+		cout<<T->data<<' ';
+		display(T->rchild);
+	}
+}
+int main(){
+	int t;
+	cin>>t;
+	while(t--){
+		int num;
+		int number;
+		cin>>number;
+		BiTree *T=NULL;
+		for(int i=0;i<number;i++){
+			cin>>num;
+			T=CreateTree(T,num);
+		}
+		display(T);
+		cout<<endl;
+		int time;
+		cin>>time;
+		while(time--){
+			pos=0;
+			cin>>num;
+			Find(T,num);
+		}
+	}
+	return 0;
+}
